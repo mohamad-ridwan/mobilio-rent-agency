@@ -1,4 +1,3 @@
-import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -6,12 +5,21 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { SelectOptions } from "@/types/forms";
+import {
+  FormItem,
+  FormControl,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 
 interface SelectCardProps {
   label: string;
   id: string;
   placeholder?: string;
-  options: { value: string; label: string }[];
+  options: SelectOptions[];
+  onValueChange?: (value: string) => void;
+  value?: string;
 }
 
 export function SelectCard({
@@ -19,14 +27,18 @@ export function SelectCard({
   id,
   placeholder,
   options,
+  onValueChange,
+  value,
 }: SelectCardProps) {
   return (
-    <div className="space-y-2">
-      <Label htmlFor={id}>{label}</Label>
-      <Select>
-        <SelectTrigger id={id} className="w-full">
-          <SelectValue placeholder={placeholder} />
-        </SelectTrigger>
+    <FormItem>
+      <FormLabel htmlFor={id}>{label}</FormLabel>
+      <Select onValueChange={onValueChange} defaultValue={value}>
+        <FormControl id={id}>
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder={placeholder} />
+          </SelectTrigger>
+        </FormControl>
         <SelectContent>
           {options.map((option) => (
             <SelectItem key={option.value} value={option.value}>
@@ -35,6 +47,7 @@ export function SelectCard({
           ))}
         </SelectContent>
       </Select>
-    </div>
+      <FormMessage />
+    </FormItem>
   );
 }

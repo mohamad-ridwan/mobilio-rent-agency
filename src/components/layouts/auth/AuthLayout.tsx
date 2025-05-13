@@ -1,5 +1,3 @@
-// components/layouts/AuthLayout.tsx
-
 import { ReactNode } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils"; // dari shadcn, buat merge class

@@ -40,6 +40,7 @@ export default function LoginForm() {
                   label="Password"
                   id="password"
                   placeholder="••••••••"
+                  type="password"
                   {...field}
                 />
               )}

@@ -17,6 +17,7 @@ export default function FormRegister() {
     countryOptions,
     onSubmit,
     form,
+    loadingSubmit,
   } = useRegister();
   return (
     <Form {...form}>
@@ -24,7 +25,7 @@ export default function FormRegister() {
         <Card className="shadow-none border-none bg-transparent">
           <CardHeader>
             <CardTitle className="text-2xl text-neutral-900 dark:text-neutral-100">
-              Register your Agency
+              Register your Company
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -193,6 +194,7 @@ export default function FormRegister() {
               type="submit"
               className="w-full mt-4 cursor-pointer"
               variant="default"
+              disabled={loadingSubmit}
             >
               Register
             </Button>

@@ -4,13 +4,14 @@ import { fetchRegister } from "@/services/api/agencies/register";
 import { ReqRegisterAgency } from "@/types/api/agencies/register";
 import { SelectOptions } from "@/types/forms";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 const useRegister = () => {
+  const [loadingSubmit, setLoadingSubmit] = useState(false);
   const formSchema = z.object({
     name: z.string().min(1, "Agency Name is required"),
     phoneNumber: z.string().min(1, "Phone Number is required"),
@@ -49,6 +50,8 @@ const useRegister = () => {
 
   const onSubmit = useCallback(
     async (values: z.infer<typeof formSchema>) => {
+      if (loadingSubmit) return;
+      setLoadingSubmit(true);
       const requestData: ReqRegisterAgency = {
         name: values.name,
         phoneNumber: values.phoneNumber,
@@ -84,8 +87,9 @@ const useRegister = () => {
           },
         });
       }
+      setLoadingSubmit(false);
     },
-    [form, router]
+    [form, router, loadingSubmit]
   );
 
   const districtOptions = useMemo((): SelectOptions[] => {
@@ -132,6 +136,7 @@ const useRegister = () => {
     countryOptions,
     form,
     onSubmit,
+    loadingSubmit,
   };
 };
 

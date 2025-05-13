@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import AuthNavigate from "@/components/layouts/auth/AuthNavigate";
 import InputCard from "@/components/inputs/InputCard";
+import { SelectCard } from "@/components/selects/SelectCard";
 
 export default function RegisterPage() {
   return (
@@ -44,23 +45,62 @@ export default function RegisterPage() {
               id="street"
               placeholder="Jalan Contoh No. 45"
             />
-            <InputCard
+
+            <SelectCard
               label="District"
               id="district"
-              placeholder="Bogor Barat"
+              placeholder="Select District"
+              options={[
+                { value: "bogor-barat", label: "Bogor Barat" },
+                { value: "bogor-timur", label: "Bogor Timur" },
+                { value: "bogor-selatan", label: "Bogor Selatan" },
+                { value: "bogor-utara", label: "Bogor Utara" },
+              ]}
             />
-            <InputCard label="City" id="city" placeholder="Bogor" />
-            <InputCard
+
+            <SelectCard
+              label="City"
+              id="city"
+              placeholder="Select City"
+              options={[
+                { value: "bogor", label: "Bogor" },
+                { value: "depok", label: "Depok" },
+                { value: "jakarta", label: "Jakarta" },
+              ]}
+            />
+
+            <SelectCard
               label="Province"
               id="province"
-              placeholder="Jawa Barat"
+              placeholder="Select Province"
+              options={[
+                { value: "jawa-barat", label: "Jawa Barat" },
+                { value: "jawa-tengah", label: "Jawa Tengah" },
+                { value: "dki-jakarta", label: "DKI Jakarta" },
+              ]}
             />
-            <InputCard
+
+            <SelectCard
               label="Postal Code"
               id="postalCode"
-              placeholder="16110"
+              placeholder="Select Postal Code"
+              options={[
+                { value: "16110", label: "16110" },
+                { value: "16111", label: "16111" },
+                { value: "16112", label: "16112" },
+              ]}
             />
-            <InputCard label="Country" id="country" placeholder="Indonesia" />
+
+            <SelectCard
+              label="Country"
+              id="country"
+              placeholder="Select Country"
+              options={[
+                { value: "indonesia", label: "Indonesia" },
+                { value: "malaysia", label: "Malaysia" },
+                { value: "singapore", label: "Singapore" },
+              ]}
+            />
           </div>
 
           <Button className="w-full mt-4" variant="default">

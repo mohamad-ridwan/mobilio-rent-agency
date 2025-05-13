@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import AuthNavigate from "@/components/layouts/auth/AuthNavigate";
 import InputCard from "@/components/inputs/InputCard";
 import { SelectCard } from "@/components/selects/SelectCard";
-import useRegister from "@/hooks/useRegister";
+import useRegister from "@/hooks/auth/useRegister";
 import { Form, FormField } from "@/components/ui/form";
 
 export default function FormRegister() {

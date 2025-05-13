@@ -5,6 +5,8 @@ import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
+import Cookies from "js-cookie";
+import { mobilioSession } from "@/constants/storage";
 
 const useLogin = () => {
   const [loadingSubmit, setLoadingSubmit] = useState(false);
@@ -35,6 +37,7 @@ const useLogin = () => {
           },
         });
         form.reset();
+        Cookies.set(mobilioSession, result.token as string);
         router.push("/dashboard");
       } else {
         toast(result.message, {

@@ -33,7 +33,7 @@ export function SelectCard({
   return (
     <FormItem>
       <FormLabel htmlFor={id}>{label}</FormLabel>
-      <Select onValueChange={onValueChange} defaultValue={value}>
+      <Select onValueChange={onValueChange} defaultValue={value} value={value}>
         <FormControl id={id}>
           <SelectTrigger className="w-full">
             <SelectValue placeholder={placeholder} />

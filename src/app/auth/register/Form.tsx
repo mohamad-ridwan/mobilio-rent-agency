@@ -88,7 +88,7 @@ export default function FormRegister() {
                 <InputCard
                   label="Password"
                   id="password"
-                  placeholder="********"
+                  placeholder="••••••••"
                   type="password"
                   {...field}
                 />
@@ -189,7 +189,11 @@ export default function FormRegister() {
               />
             </div>
 
-            <Button type="submit" className="w-full mt-4" variant="default">
+            <Button
+              type="submit"
+              className="w-full mt-4 cursor-pointer"
+              variant="default"
+            >
               Register
             </Button>
 

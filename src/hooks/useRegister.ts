@@ -1,10 +1,14 @@
 "use client";
 
+import { fetchRegister } from "@/services/api/agencies/register";
+import { ReqRegisterAgency } from "@/types/api/agencies/register";
 import { SelectOptions } from "@/types/forms";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useCallback, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const useRegister = () => {
   const formSchema = z.object({
@@ -41,10 +45,48 @@ const useRegister = () => {
     },
   });
 
-  const onSubmit = useCallback((values: z.infer<typeof formSchema>) => {
-    console.log("Form submitted", values);
-    // send to API
-  }, []);
+  const router = useRouter();
+
+  const onSubmit = useCallback(
+    async (values: z.infer<typeof formSchema>) => {
+      const requestData: ReqRegisterAgency = {
+        name: values.name,
+        phoneNumber: values.phoneNumber,
+        email: values.email,
+        establishedYear: Number(values.establishedYear),
+        password: values.password,
+        address: {
+          street: values.street,
+          district: values.district,
+          city: values.city,
+          province: values.province,
+          postalCode: values.postalCode,
+          country: values.country,
+        },
+      };
+      const result = await fetchRegister(requestData);
+      if (result.result) {
+        toast(result.message, {
+          description:
+            "Your account has been successfully registered, please login.",
+          action: {
+            label: "Login",
+            onClick: () => router.push("/auth/login"),
+          },
+        });
+        form.reset();
+      } else {
+        toast(result.message, {
+          className: "!text-red-500",
+          action: {
+            label: "Close",
+            onClick: () => {},
+          },
+        });
+      }
+    },
+    [form, router]
+  );
 
   const districtOptions = useMemo((): SelectOptions[] => {
     return [

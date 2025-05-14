@@ -22,7 +22,7 @@ export async function fetchCars(): Promise<CarListResponseType> {
 
   const result = res;
   if (!result?.data) {
-    return { result: false, message: result.message };
+    return { result: false, message: result.message, status: result.status };
   }
 
   return { ...result, result: true };

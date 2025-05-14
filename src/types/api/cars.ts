@@ -23,7 +23,8 @@ interface CarListResponse {
   message: string;
   data?: Car[];
   pagination?: Pagination;
-  result: boolean; // Pagination mungkin opsional tergantung pada API
+  result: boolean;
+  status?: number; // Pagination mungkin opsional tergantung pada API
 }
 
 export type CarListResponseType = CarListResponse;

@@ -24,49 +24,26 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { CarListResponseType, CarType } from "@/types/api/cars";
 
-const useCars = () => {
-  const data: Payment[] = [
-    {
-      id: "m5gr84i9",
-      amount: 316,
-      status: "success",
-      email: "ken99@example.com",
-    },
-    {
-      id: "3u1reuv4",
-      amount: 242,
-      status: "success",
-      email: "Abe45@example.com",
-    },
-    {
-      id: "derv1ws0",
-      amount: 837,
-      status: "processing",
-      email: "Monserrat44@example.com",
-    },
-    {
-      id: "5kma53ae",
-      amount: 874,
-      status: "success",
-      email: "Silas22@example.com",
-    },
-    {
-      id: "bhqecj4p",
-      amount: 721,
-      status: "failed",
-      email: "carmella@example.com",
-    },
-  ];
+type Props = {
+  carLists: CarListResponseType;
+};
 
-  type Payment = {
+const useCars = ({ carLists }: Props) => {
+  const [carsData, setCarsData] = React.useState<CarType[]>(
+    carLists.data as CarType[]
+  );
+
+  type TableCar = {
     id: string;
-    amount: number;
-    status: "pending" | "processing" | "success" | "failed";
-    email: string;
+    model: string;
+    capacity: number;
+    rentalPricePerDay: number;
+    available: boolean;
   };
 
-  const columns: ColumnDef<Payment>[] = [
+  const columns: ColumnDef<TableCar>[] = [
     {
       id: "select",
       header: ({ table }) => (
@@ -90,34 +67,53 @@ const useCars = () => {
       enableHiding: false,
     },
     {
-      accessorKey: "status",
+      accessorKey: "available",
       header: "Status",
       cell: ({ row }) => (
-        <div className="capitalize">{row.getValue("status")}</div>
+        <div className="capitalize">
+          {row.getValue("available") ? "Available" : "Not Available"}
+        </div>
       ),
     },
     {
-      accessorKey: "email",
+      accessorKey: "model",
       header: ({ column }) => {
         return (
           <Button
             variant="ghost"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            Email
+            Model
             <ArrowUpDown />
           </Button>
         );
       },
       cell: ({ row }) => (
-        <div className="lowercase">{row.getValue("email")}</div>
+        <div className="lowercase">{row.getValue("model")}</div>
       ),
     },
     {
-      accessorKey: "amount",
-      header: () => <div className="text-right">Amount</div>,
+      accessorKey: "capacity",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Capacity
+            <ArrowUpDown />
+          </Button>
+        );
+      },
+      cell: ({ row }) => (
+        <div className="lowercase">{row.getValue("capacity")}</div>
+      ),
+    },
+    {
+      accessorKey: "rentalPricePerDay",
+      header: () => <div className="text-right">Price Per Day</div>,
       cell: ({ row }) => {
-        const amount = parseFloat(row.getValue("amount"));
+        const amount = parseFloat(row.getValue("rentalPricePerDay"));
 
         // Format the amount as a dollar amount
         const formatted = new Intl.NumberFormat("en-US", {
@@ -168,7 +164,7 @@ const useCars = () => {
   const [rowSelection, setRowSelection] = React.useState({});
 
   const table = useReactTable({
-    data,
+    data: carsData,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,

@@ -1,4 +1,4 @@
-import { fetchLogin } from "@/services/api/agencies/login";
+import { fetchLogin } from "@/services/api/login";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";

@@ -1,7 +1,7 @@
 "use client";
 
-import { fetchRegister } from "@/services/api/agencies/register";
-import { ReqRegisterAgency } from "@/types/api/agencies/register";
+import { fetchRegister } from "@/services/api/register";
+import { ReqRegisterAgency } from "@/types/api/register";
 import { SelectOptions } from "@/types/forms";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useCallback, useMemo, useState } from "react";

@@ -2,7 +2,7 @@
 
 import { APIBaseURL } from "@/services/api/baseUrl";
 import { fetchApi } from "@/services/api/fetchApi";
-import { ReqLogin, ResultLogin } from "@/types/api/agencies/login";
+import { ReqLogin, ResultLogin } from "@/types/api/login";
 
 export async function fetchLogin(body: ReqLogin): Promise<ResultLogin> {
   const res = await fetchApi<ResultLogin>(`${APIBaseURL}/agencies/login`, {

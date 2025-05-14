@@ -2,10 +2,7 @@
 
 import { APIBaseURL } from "@/services/api/baseUrl";
 import { fetchApi } from "@/services/api/fetchApi";
-import {
-  ReqRegisterAgency,
-  ResultRegister,
-} from "@/types/api/agencies/register";
+import { ReqRegisterAgency, ResultRegister } from "@/types/api/register";
 
 export async function fetchRegister(
   body: ReqRegisterAgency

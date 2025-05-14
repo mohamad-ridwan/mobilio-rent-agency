@@ -9,7 +9,7 @@ export default function AuthLayout({
   return (
     <SidebarProvider>
       <SidebarCard />
-      <main>
+      <main className="w-full">
         <SidebarTrigger />
         {children}
       </main>

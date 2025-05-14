@@ -1,4 +1,4 @@
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
+import { Calendar, Car, ChartArea, Search, Settings } from "lucide-react";
 
 import {
   Sidebar,
@@ -10,18 +10,20 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import Link from "next/link";
+import Image from "next/image";
 
 // Menu items.
 const items = [
   {
-    title: "Home",
-    url: "#",
-    icon: Home,
+    title: "Statistics",
+    url: "/dashboard/statistics",
+    icon: ChartArea,
   },
   {
-    title: "Inbox",
-    url: "#",
-    icon: Inbox,
+    title: "Cars",
+    url: "/dashboard/cars",
+    icon: Car,
   },
   {
     title: "Calendar",
@@ -45,16 +47,25 @@ export function SidebarCard() {
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
+          <SidebarGroupLabel className="h-fit pb-4">
+            <Link href="/dashboard/statistics">
+              <Image
+                src={`/${process.env.MAIN_PREFIX_IMAGE}/logo.webp`}
+                width={120}
+                height={80}
+                alt="mobilio rent"
+              />
+            </Link>
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a href={item.url}>
+                    <Link href={item.url}>
                       <item.icon />
                       <span>{item.title}</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}

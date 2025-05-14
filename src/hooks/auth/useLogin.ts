@@ -38,7 +38,7 @@ const useLogin = () => {
         });
         form.reset();
         Cookies.set(mobilioSession, result.token as string);
-        router.push("/dashboard");
+        router.push("/dashboard/statistics");
       } else {
         toast(result.message, {
           className: "!text-red-500",

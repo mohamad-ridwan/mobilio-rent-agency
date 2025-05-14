@@ -38,19 +38,16 @@ export async function middleware(request: NextRequest) {
     return response;
   }
 
-  if (
-    !auth_session?.value &&
-    (!request.url.includes("/auth/login") ||
-      !request.url.includes("/auth/register"))
-  ) {
-    if (
-      request.url.includes("/auth/login") ||
-      request.url.includes("/auth/register")
-    ) {
-      return nextResponse;
-    }
-    const response = NextResponse.redirect(new URL(`/auth/login`, request.url));
-    return response;
+  const isAuthPage =
+    request.nextUrl.pathname.startsWith("/auth/login") ||
+    request.nextUrl.pathname.startsWith("/auth/register");
+
+  if (!auth_session?.value && !isAuthPage) {
+    return NextResponse.redirect(new URL("/auth/login", request.url));
+  }
+
+  if (auth_session?.value && isAuthPage) {
+    return NextResponse.redirect(new URL("/dashboard/statistics", request.url));
   }
   return nextResponse;
 }
